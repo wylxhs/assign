@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>编写一个自动补全邮箱的功能</title>
+    <style>
+        .con{
+            width: 200px;
+        }
+        input{
+            width: 200px;
+            height: 20px;
+            
+        }
+        ul{
+            padding:0;
+            margin: 10px 0;
+            width: 204px;
+           
+        }
+        ul li{
+            list-style: none;
+            width: 200px;
+            padding: 0 2px;
+            height: 24px;
+            line-height: 24px;
+            cursor: pointer;
+            border: 1px solid #999;
+        }
+        ul li:hover{
+            background: #ccc;
+        }
+        .border{
+            border-top: 0;
+        }
+        .active{
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="con">
+            <input type="text" v-model="search"
+                @keydown.13.37.38.39.40.prevent="active">
+                <ul>
+                    <li v-for="(item,index) in userList"
+                        :class="{active:index === selectIndex}"
+                        @click="select(item)">
+                        {{item}}
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <script>    
+        const vm = new Vue({
+            el:"#app",
+            data:{
+                selectIndex:-1,
+                search:'',
+                users:[
+                    '张三',
+                    '李四',
+                    '老王',
+                    '赵柳',
+                    '金科',
+                    '张四'
+                ]
+            },
+            methods:{
+                select(item){
+                    this.search=item
+                    
+                },
+                active(item){
+                    const code = item.keyCode
+                    if(code === 13){
+                        this.search = this.userList[this.selectIndex]
+                    }else if(code == 38){
+                        this.selectIndex--
+                        if(this.selectIndex<0){
+                            this.selectIndex=this.userList.length-1
+                        }
+                    }else if(code === 40){
+                        this.selectIndex++
+                        if(this.selectIndex>this.userList.length-1){
+                            this.selectIndex=0
+                        }
+                    }
+                },
+                
+            },
+            computed:{
+                userList(){
+                    return this.users.filter((value)=>{
+                        return value.indexOf(this.search) !== -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
