@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <script src="button.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>button组件</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            template:
+                `
+                <div class="app">
+                    <Button color="primary">按钮111</Button>
+                    <Button color="success" size="sm">按钮222</Button>
+                    <Button color="info" size="xs">按钮333</Button>
+                    <Button color="lg">按钮444</Button>
+                    <Button color="danger" size="xs" value="">按钮555</Button>
+                </div>                
+                `,
+            
+        })
+    </script>
+</body>
+</html>
